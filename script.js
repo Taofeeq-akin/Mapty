@@ -56,7 +56,5 @@ if (navigator.geolocation)
 
     function () {
       alert('Could not get your location');
-      alert('Could not get your location');
-
     }
   );
