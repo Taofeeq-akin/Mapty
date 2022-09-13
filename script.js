@@ -11,73 +11,95 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-let map, mapEvent; // create global variable to be reuse
+// let map, mapEvent; // create global variable to be reuse
 
-// How Maps work on JavaScript
-if (navigator.geolocation)
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      const { latitude } = position.coords;
-      const { longitude } = position.coords;
-      // console.log(latitude, longitude);
-      // console.log(`https://www.google.com/maps/@${latitude},${longitude},12z`);
+class App {
+  // define map and mapEvent as ppt of the Object using private class field since we want everythng related right in the App class.. will become private instance ppt
+  #map;
+  #mapEvent;
+  constructor() {
+    // Methods in the parent can be called in the contruction
+    this._getPosition();
 
-      const coords = [latitude, longitude];
+    // Adding Event Listener on form
+    form.addEventListener('submit', this._newWorkout.bind(this));
 
-      // How to display map using a third library (leaflet)
-      map = L.map('map').setView(coords, 13);
+    // Listenening to InputType
+    inputType.addEventListener('change', this._toggleElevationField.bind(this));
+  }
 
-      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+  _getPosition() {
+    // How Maps work on JavaScript
+    if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(
+        this._loadMap.bind(this),
+        function () {
+          alert('Could not get your location');
+        }
+      );
+  }
 
-      // How to create a marker
-      //Add event listener to the map by using map.on, for handling click on map
-      map.on('click', function (mapE) {
-        // Workout form
-        mapEvent = mapE;
-        form.classList.remove('hidden');
-        inputDistance.focus();
-      });
-    },
+  _loadMap(position) {
+    const { latitude } = position.coords;
+    const { longitude } = position.coords;
+    console.log(latitude, longitude);
+    // console.log(`https://www.google.com/maps/@${latitude},${longitude},12z`);
 
-    function () {
-      alert('Could not get your location');
-    }
-  );
+    const coords = [latitude, longitude];
 
-// Adding Event Listener on form
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
+    // How to display map using a third library (leaflet)
+    this.#map = L.map('map').setView(coords, 13);
 
-  // clear input fields
-  inputDistance.value =
-    inputDuration.value =
-    inputCadence.value =
-    inputElevation.value =
-      '';
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.#map);
 
-  // Display Maker
-  // console.log(mapEvent);
-  const { lat, lng } = mapEvent.latlng;
-  L.marker({ lat, lng })
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxWidth: 250,
-        minWidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        className: 'running-popup',
-      })
-    )
-    .setPopupContent('Workout')
-    .openPopup();
-});
+    // How to create a marker
+    //Add event listener to the map by using map.on, for handling click on map
+    this.#map.on('click', this._showForm.bind(this));
+  }
 
-// Listenening to InputType
-inputType.addEventListener('change', function () {
-  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-});
+  _showForm(mapE) {
+    // Workout form
+    this.#mapEvent = mapE;
+    form.classList.remove('hidden');
+    inputDistance.focus();
+  }
+
+  _toggleElevationField() {
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+  }
+
+  _newWorkout(e) {
+    e.preventDefault();
+
+    // clear input fields
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
+
+    // Display Maker
+    // console.log(mapEvent);
+    const { lat, lng } = this.#mapEvent.latlng;
+    L.marker({ lat, lng })
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: 'running-popup',
+        })
+      )
+      .setPopupContent('Workout')
+      .openPopup();
+  }
+}
+
+// Still need to call the parent method like this
+const app = new App();

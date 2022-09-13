@@ -2,7 +2,7 @@ MAPTY APP:  OOP, GEOLOCATION, EXTERNAL LIBRARIES AND MORE
 
 // USING Goelocation API
 STEPS 1, 
-Using navigator.geolocation with a third party called leaflet to display the map
+Using navigator.geolocation with a third party called leaflet to display the map from recieving location from geolocation API
 
 2) Add eventlistener on the map using map.on
 
@@ -12,4 +12,4 @@ Using navigator.geolocation with a third party called leaflet to display the map
 
 5) Add display Maker into to display after submoitting form, With the help of leaflet documents to modify the maker
 
-6) Listen to Input typle to add toggle method to input value in elevation cadense
+6) Listen to Input typle to add toggle method to input value in change of elevation or cadense
