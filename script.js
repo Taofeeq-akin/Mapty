@@ -11,7 +11,7 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-let map;
+let map, mapEvent; // create global variable to be reuse
 
 // How Maps work on JavaScript
 if (navigator.geolocation)
@@ -34,10 +34,12 @@ if (navigator.geolocation)
       }).addTo(map);
 
       // How to create a marker
-      //Add event listener to the map by using map.on
-      map.on('click', function (mapEvent) {
+      //Add event listener to the map by using map.on, for handling click on map
+      map.on('click', function (mapE) {
         // Workout form
+        mapEvent = mapE;
         form.classList.remove('hidden');
+        inputDistance.focus();
       });
     },
 
@@ -47,9 +49,17 @@ if (navigator.geolocation)
   );
 
 // Adding Event Listener on form
-form.addEventListener('submit', function () {
-  // Display Maker
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
 
+  // clear input fields
+  inputDistance.value =
+    inputDuration.value =
+    inputCadence.value =
+    inputElevation.value =
+      '';
+
+  // Display Maker
   // console.log(mapEvent);
   const { lat, lng } = mapEvent.latlng;
   L.marker({ lat, lng })
@@ -65,4 +75,11 @@ form.addEventListener('submit', function () {
     )
     .setPopupContent('Workout')
     .openPopup();
+});
+
+// Listenening to InputType
+inputType.addEventListener('change', function () {
+  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+
 });
