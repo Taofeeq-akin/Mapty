@@ -25,7 +25,6 @@ if (navigator.geolocation)
       const coords = [latitude, longitude];
 
       // How to display map using a third library (leaflet)
-
       map = L.map('map').setView(coords, 13);
 
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -81,5 +80,4 @@ form.addEventListener('submit', function (e) {
 inputType.addEventListener('change', function () {
   inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-
 });

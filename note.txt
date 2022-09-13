@@ -1,3 +1,15 @@
 MAPTY APP:  OOP, GEOLOCATION, EXTERNAL LIBRARIES AND MORE
 
 // USING Goelocation API
+STEPS 1, 
+Using navigator.geolocation with a third party called leaflet to display the map
+
+2) Add eventlistener on the map using map.on
+
+3) Remove hidden style on form if click on map 
+
+4) Adding Event Listener on form with 'Submit' event type
+
+5) Add display Maker into to display after submoitting form, With the help of leaflet documents to modify the maker
+
+6) Listen to Input typle to add toggle method to input value in elevation cadense
