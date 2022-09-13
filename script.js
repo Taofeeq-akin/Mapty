@@ -11,6 +11,8 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+let map;
+
 // How Maps work on JavaScript
 if (navigator.geolocation)
   navigator.geolocation.getCurrentPosition(
@@ -24,7 +26,7 @@ if (navigator.geolocation)
 
       // How to display map using a third library (leaflet)
 
-      const map = L.map('map').setView(coords, 13);
+      map = L.map('map').setView(coords, 13);
 
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         attribution:
@@ -34,23 +36,8 @@ if (navigator.geolocation)
       // How to create a marker
       //Add event listener to the map by using map.on
       map.on('click', function (mapEvent) {
-        // console.log(mapEvent);
-
-        const { lat, lng } = mapEvent.latlng;
-
-        L.marker({ lat, lng })
-          .addTo(map)
-          .bindPopup(
-            L.popup({
-              maxWidth: 250,
-              minWidth: 100,
-              autoClose: false,
-              closeOnClick: false,
-              className: 'running-popup',
-            })
-          )
-          .setPopupContent('Workout')
-          .openPopup();
+        // Workout form
+        form.classList.remove('hidden');
       });
     },
 
@@ -58,3 +45,24 @@ if (navigator.geolocation)
       alert('Could not get your location');
     }
   );
+
+// Adding Event Listener on form
+form.addEventListener('submit', function () {
+  // Display Maker
+
+  // console.log(mapEvent);
+  const { lat, lng } = mapEvent.latlng;
+  L.marker({ lat, lng })
+    .addTo(map)
+    .bindPopup(
+      L.popup({
+        maxWidth: 250,
+        minWidth: 100,
+        autoClose: false,
+        closeOnClick: false,
+        className: 'running-popup',
+      })
+    )
+    .setPopupContent('Workout')
+    .openPopup();
+});
