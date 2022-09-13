@@ -11,8 +11,52 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-// let map, mapEvent; // create global variable to be reuse
+// Managing workout data
+class Workout {
+  date = new Date();
+  id = (Date.now() + '').slice(-10);
 
+  constructor(coords, distance, duration) {
+    this.coords = coords; // [lat, lng]
+    this.distance = distance; // in km
+    this.duration = duration; // in min
+  }
+}
+
+class Running extends Workout {
+  constructor(coords, distance, duration, cadence) {
+    super(coords, distance, duration);
+    this.cadence = cadence;
+
+    // calcpace can be called here isntead of returning it
+    this.CalcPace();
+  }
+
+  CalcPace() {
+    // min/km
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+
+class Cycling extends Workout {
+  constructor(coords, distance, duration, elevationGain) {
+    super(coords, distance, duration);
+    this.elevationGain = elevationGain;
+    this.CalcSpeed();
+  }
+
+  CalcSpeed() {
+    //km/h
+    this.speed = this.distance / (this.duration / 60);
+    return this.speed;
+  }
+}
+
+const run1 = new Running ([34, -10], 5.4, 15, 4)
+console.log(run1)
+
+// APPLICATION ARCHITECTURE
 class App {
   // define map and mapEvent as ppt of the Object using private class field since we want everythng related right in the App class.. will become private instance ppt
   #map;

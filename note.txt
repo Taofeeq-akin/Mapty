@@ -13,3 +13,7 @@ Using navigator.geolocation with a third party called leaflet to display the map
 5) Add display Maker into to display after submoitting form, With the help of leaflet documents to modify the maker
 
 6) Listen to Input typle to add toggle method to input value in change of elevation or cadense
+
+7) refined my code using constrction funtion 
+
+8) create classes for workout data
