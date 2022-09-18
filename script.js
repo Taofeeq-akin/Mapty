@@ -53,8 +53,8 @@ class Cycling extends Workout {
   }
 }
 
-const run1 = new Running ([34, -10], 5.4, 15, 4)
-console.log(run1)
+// const run1 = new Running ([34, -10], 5.4, 15, 4)
+// console.log(run1)
 
 // APPLICATION ARCHITECTURE
 class App {
@@ -119,15 +119,33 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
 
-    // clear input fields
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence.value =
-      inputElevation.value =
-        '';
+    // Steps in processing storage of value
+    // Get data from form
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration;
 
-    // Display Maker
-    // console.log(mapEvent);
+    // If workout running, Create running object
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+      // Check  if data is valid
+      if (
+        !Number.isFinite(distance) ||
+        !Number.isFinite(duration) ||
+        !Number.isFinite(cadence)
+      ) {
+        return alert('Inputs have to be a positive number');
+      }
+    }
+
+    // If workout cycling, Create cycling object
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+    }
+
+    // Add new oblect to workout array
+
+    // Render workout on map as marker
     const { lat, lng } = this.#mapEvent.latlng;
     L.marker({ lat, lng })
       .addTo(this.#map)
@@ -142,6 +160,13 @@ class App {
       )
       .setPopupContent('Workout')
       .openPopup();
+
+    // Add form + clear input fields
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
   }
 }
 
