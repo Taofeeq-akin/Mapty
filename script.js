@@ -61,6 +61,8 @@ class App {
   // define map and mapEvent as ppt of the Object using private class field since we want everythng related right in the App class.. will become private instance ppt
   #map;
   #mapEvent;
+  #workout = [];
+
   constructor() {
     // Methods in the parent can be called in the contruction
     this._getPosition();
@@ -86,7 +88,7 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    console.log(latitude, longitude);
+    // console.log(latitude, longitude);
     // console.log(`https://www.google.com/maps/@${latitude},${longitude},12z`);
 
     const coords = [latitude, longitude];
@@ -129,6 +131,8 @@ class App {
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
+    const { lat, lng } = this.#mapEvent.latlng;
+    let workout;
 
     // If workout running, Create running object
     if (type === 'running') {
@@ -142,6 +146,10 @@ class App {
         !allPositive(distance, duration, cadence)
       )
         return alert('Inputs have to be a positive number');
+
+      // creating new object
+      workout = new Running([lat, lng], distance, duration, cadence);
+      
     }
 
     // If workout cycling, Create cycling object
@@ -151,15 +159,17 @@ class App {
       if (
         !validInputes(distance, duration, elevation) ||
         !allPositive(distance, duration)
-      ) {
+      )
         return alert('Inputs have to be a positive number222');
-      }
+
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
 
     // Add new oblect to workout array
+    this.#workout.push(workout);
+    console.log(workout);
 
     // Render workout on map as marker
-    const { lat, lng } = this.#mapEvent.latlng;
     L.marker({ lat, lng })
       .addTo(this.#map)
       .bindPopup(
