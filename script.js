@@ -117,30 +117,37 @@ class App {
   }
 
   _newWorkout(e) {
+    const validInputes = (...inputs) =>
+      inputs.every(inp => Number.isFinite(inp));
+
     e.preventDefault();
 
     // Steps in processing storage of value
     // Get data from form
     const type = inputType.value;
     const distance = +inputDistance.value;
-    const duration = +inputDuration;
+    const duration = +inputDuration.value;
 
     // If workout running, Create running object
     if (type === 'running') {
       const cadence = +inputCadence.value;
       // Check  if data is valid
       if (
-        !Number.isFinite(distance) ||
-        !Number.isFinite(duration) ||
-        !Number.isFinite(cadence)
-      ) {
-        return alert('Inputs have to be a positive number');
-      }
+        // !Number.isFinite(distance) ||
+        // !Number.isFinite(duration) ||
+        // !Number.isFinite(cadence)
+        !validInputes(distance, duration, cadence)
+      )
+       return alert('Inputs have to be a positive number');
     }
 
     // If workout cycling, Create cycling object
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
+
+      if (!validInputes(distance, duration, elevation)) {
+        return alert('Inputs have to be a positive number222');
+      }
     }
 
     // Add new oblect to workout array
