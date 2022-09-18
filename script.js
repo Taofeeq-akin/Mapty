@@ -120,6 +120,8 @@ class App {
     const validInputes = (...inputs) =>
       inputs.every(inp => Number.isFinite(inp));
 
+    const allPositive = (...inputs) => inputs.every(inp => inp > 0);
+
     e.preventDefault();
 
     // Steps in processing storage of value
@@ -136,16 +138,20 @@ class App {
         // !Number.isFinite(distance) ||
         // !Number.isFinite(duration) ||
         // !Number.isFinite(cadence)
-        !validInputes(distance, duration, cadence)
+        !validInputes(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence)
       )
-       return alert('Inputs have to be a positive number');
+        return alert('Inputs have to be a positive number');
     }
 
     // If workout cycling, Create cycling object
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
 
-      if (!validInputes(distance, duration, elevation)) {
+      if (
+        !validInputes(distance, duration, elevation) ||
+        !allPositive(distance, duration)
+      ) {
         return alert('Inputs have to be a positive number222');
       }
     }

@@ -20,4 +20,4 @@ Using navigator.geolocation with a third party called leaflet to display the map
 
 9) Then move forward to saving the input value and checking if correct or wrong
 
-Using Guard clause (mean using opposite) to check if value is valid
+Using Guard clause (mean using opposite) to check if value is valid *check if a number and also greater than 0 except elevation
