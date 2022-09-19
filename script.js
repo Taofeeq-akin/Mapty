@@ -123,6 +123,19 @@ class App {
     inputDistance.focus();
   }
 
+  _hideform() {
+    // empty input
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
+        form.style.display = 'none'
+    form.classList.add('hidden');
+
+    setTimeout( () => form.style.display = 'grid', 1000) 
+  }
+
   _toggleElevationField() {
     inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
@@ -161,7 +174,6 @@ class App {
 
       // creating new object
       workout = new Running([lat, lng], distance, duration, cadence);
-      
     }
 
     // If workout cycling, Create cycling object
@@ -187,12 +199,8 @@ class App {
     // Render workout on list
     this._renderWorkout(workout);
 
-    // Add form + clear input fields
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence.value =
-      inputElevation.value =
-        '';
+    // Hide form + clear input fields
+    this._hideform();
   }
 
   _renderWorkoutMarker(workout) {
