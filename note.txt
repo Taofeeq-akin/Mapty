@@ -1,0 +1,41 @@
+MAPTY APP:  OOP, GEOLOCATION, EXTERNAL LIBRARIES AND MORE
+
+// USING Goelocation API
+STEPS 1, 
+Using navigator.geolocation with a third party called leaflet to display the map from recieving location from geolocation API
+
+2) Add eventlistener on the map using map.on
+
+3) Remove hidden style on form if click on map 
+
+4) Adding Event Listener on form with 'Submit' event type
+
+5) Add display Maker into to display after submoitting form, With the help of leaflet documents to modify the maker
+
+6) Listen to Input typle to add toggle method to input value in change of elevation or cadense
+
+7) refined my code using constrction funtion 
+
+8) create classes for workout data
+
+9) Then move forward to saving the input value and checking if correct or wrong
+
+Using Guard clause (mean using opposite) to check if value is valid *check if a number and also greater than 0 except elevationz
+
+10) push inputs to workout array
+
+11) Rendering Workout in the sidebar of the user interface
+
+12) Remove form after submitting 
+
+13) Add event Listener to the on workout submit to move map to workout location
+
+14) Working wit local storae API in iter to make workout persist across multiple page reloads
+
+15) now display workout on the interface even after reloading the page and also marker position 
+
+but we lost prototype chain by changing object to string and to object back
+
+So basically, that object coming from local storage will not inherite all the methods that they did before
+
+16) to clear all workout on storages (app.reset()) in browser console
