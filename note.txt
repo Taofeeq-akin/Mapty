@@ -24,6 +24,7 @@ Using Guard clause (mean using opposite) to check if value is valid *check if a 
 
 10) push inputs to workout array
 
+<<<<<<< HEAD
 11) Rendering Workout in the sidebar of the user interface
 
 12) Remove form after submitting 
@@ -39,3 +40,6 @@ but we lost prototype chain by changing object to string and to object back
 So basically, that object coming from local storage will not inherite all the methods that they did before
 
 16) to clear all workout on storages (app.reset()) in browser console
+=======
+11) Rendering Workout in te sidebar of the user interface
+>>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
