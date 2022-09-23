@@ -12,10 +12,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
-<<<<<<< HEAD
   clicks = 0;
-=======
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
 
   constructor(coords, distance, duration) {
     this.coords = coords; // [lat, lng]
@@ -31,13 +28,10 @@ class Workout {
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
   }
-<<<<<<< HEAD
 
   click() {
     this.clicks++;
   }
-=======
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
 }
 
 class Running extends Workout {
@@ -81,7 +75,6 @@ class Cycling extends Workout {
 class App {
   // define map and mapEvent as ppt of the Object using private class field since we want everythng related right in the App class.. will become private instance ppt
   #map;
-<<<<<<< HEAD
   #mapZoomLevel = 13;
   #mapEvent;
   #workouts = [];
@@ -94,26 +87,14 @@ class App {
     // get data local storage
     this._getLocalStorage();
 
-=======
-  #mapEvent;
-  #workout = [];
-
-  constructor() {
-    // Methods in the parent can be called in the contruction
-    this._getPosition();
-
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
     // Adding Event Listener on form
     form.addEventListener('submit', this._newWorkout.bind(this));
 
     // Listenening to InputType
     inputType.addEventListener('change', this._toggleElevationField.bind(this));
-<<<<<<< HEAD
 
     // Move to Popup
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
-=======
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
   }
 
   _getPosition() {
@@ -136,11 +117,7 @@ class App {
     const coords = [latitude, longitude];
 
     // How to display map using a third library (leaflet)
-<<<<<<< HEAD
     this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
-=======
-    this.#map = L.map('map').setView(coords, 13);
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
@@ -150,14 +127,11 @@ class App {
     // How to create a marker
     //Add event listener to the map by using map.on, for handling click on map
     this.#map.on('click', this._showForm.bind(this));
-<<<<<<< HEAD
 
     // to get render workout from position from storage cus the map have to be loaded
     this.#workouts.forEach(work => {
       this._renderWorkoutMarker(work);
     });
-=======
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
   }
 
   _showForm(mapE) {
@@ -234,13 +208,8 @@ class App {
     }
 
     // Add new oblect to workout array
-<<<<<<< HEAD
     this.#workouts.push(workout);
     // console.log(workout);
-=======
-    this.#workout.push(workout);
-    console.log(workout);
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
 
     // Render workout on map as marker
     this._renderWorkoutMarker(workout);
@@ -250,12 +219,9 @@ class App {
 
     // Hide form + clear input fields
     this._hideform();
-<<<<<<< HEAD
 
     // set workouts to locale storage API
     this._setLocalStorage();
-=======
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
   }
 
   _renderWorkoutMarker(workout) {
@@ -327,7 +293,6 @@ class App {
     }
 
     form.insertAdjacentHTML('afterend', html);
-<<<<<<< HEAD
   }
 
   _moveToPopup(e) {
@@ -374,9 +339,7 @@ class App {
   reset() {
     localStorage.removeItem('workouts');
     location.reload();
-=======
     console.log(workout.type);
->>>>>>> a082f3f81e818a8eaa4630ad510a3d4fb0241fe5
   }
 }
 
